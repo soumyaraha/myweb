@@ -7,9 +7,7 @@ node('master'){
 	}
 	
 	stage('MVN Build'){
-		def mvnHome = tool name: 'maven3', type: 'maven'
-		def mvn = "$mvnHome/bin/mvn" 
-	    sh label: '', script: "$mvn clean package"
+		sh mvn clean package"
 	}
 	
 	stage('Deploy-Dev'){
@@ -19,9 +17,9 @@ node('master'){
 	  sshagent(['tomcat-dev']) {
 	    sh "mv target/myweb*.war target/myweb.war"
 		
-		sh "scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.11.2:/opt/tomcat8/webapps/"
+		sh "scp -o StrictHostKeyChecking=no target/myweb.war appuser@192.168.43.208:/opt/tomcat10/webapps/"
 		
-		sh "ssh ec2-user@172.31.11.2 /opt/tomcat8/bin/startup.sh"
+		sh "ssh appuser@192.168.43.208 /opt/tomcat10/bin/startup.sh"
 	  }
 	}
 	
