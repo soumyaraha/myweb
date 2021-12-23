@@ -8,7 +8,7 @@ node('master'){
 	}
 	
 	stage('MVN Build'){
-		def mvnHome = tool name: 'maven1', type: 'maven'
+		def mvnHome = tool name: 'maven', type: 'maven'
 		def mvn = "$mvnHome/bin/mvn" 
 	    sh label: '', script: "$mvn clean package"
 	}
